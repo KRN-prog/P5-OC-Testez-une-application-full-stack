@@ -6,11 +6,9 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 
 public class UserDtoSample {
-    // Creation d'une clock customisé
     static Clock customClock = Clock.fixed(
             Instant.parse("2024-02-06T16:30:00Z"),
             ZoneId.of("UTC"));
-    // Get current date and time using the custom clock
     static LocalDateTime now = LocalDateTime.ofInstant(customClock.instant(), ZoneId.systemDefault());
     public static UserDto oneUserDtoSample() {
         UserDto userDto = new UserDto();

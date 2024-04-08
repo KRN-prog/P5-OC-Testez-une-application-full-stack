@@ -40,19 +40,16 @@ public class TeacherControllerTest {
 
     @Test
     void testFindTeacherById_TeacherExists() {
-        // Arrange
         Long teacherId = 1L;
-        Teacher teacher = oneTeacherSample(); // Create a sample teacher object
+        Teacher teacher = oneTeacherSample();
         when(teacherService.findById(teacherId)).thenReturn(teacher);
-        when(teacherMapper.toDto(teacher)).thenReturn(oneTeacherDto()); // Map teacher to DTO
+        when(teacherMapper.toDto(teacher)).thenReturn(oneTeacherDto());
 
-        // Act
         ResponseEntity<?> response = teacherController.findById(teacherId.toString());
 
-        // Assert
-        assertEquals(HttpStatus.OK, response.getStatusCode()); // Expecting 200 status code
-        verify(teacherService, times(1)).findById(teacherId); // Verify that teacherService.findById was called
-        verify(teacherMapper, times(1)).toDto(teacher); // Verify that teacherMapper.toDto was called
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        verify(teacherService, times(1)).findById(teacherId);
+        verify(teacherMapper, times(1)).toDto(teacher);
     }
 
 

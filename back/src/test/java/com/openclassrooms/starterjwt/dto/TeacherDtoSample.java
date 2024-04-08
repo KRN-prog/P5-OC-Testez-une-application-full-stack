@@ -8,11 +8,9 @@ import java.time.ZoneId;
 public class TeacherDtoSample {
 
     public static TeacherDto oneTeacherDto() {
-        // Creation d'une clock customisé
         Clock customClock = Clock.fixed(
                 Instant.parse("2023-04-06T10:05:00Z"),
                 ZoneId.of("UTC"));
-        // Get current date and time using the custom clock
         LocalDateTime now = LocalDateTime.ofInstant(customClock.instant(), ZoneId.systemDefault());
 
         TeacherDto teacherDto = new TeacherDto();
@@ -26,11 +24,9 @@ public class TeacherDtoSample {
     }
 
     public static TeacherDto oneOtherTeacherDto() {
-        // Creation d'une clock customisé
         Clock customClock = Clock.fixed(
                 Instant.parse("2022-10-06T03:47:00Z"),
                 ZoneId.of("UTC"));
-        // Get current date and time using the custom clock
         LocalDateTime now = LocalDateTime.ofInstant(customClock.instant(), ZoneId.systemDefault());
 
         TeacherDto teacherDto = new TeacherDto();

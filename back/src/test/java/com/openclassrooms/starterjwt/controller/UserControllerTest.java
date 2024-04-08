@@ -41,40 +41,31 @@ public class UserControllerTest {
     class UserById {
         @Test
         void testFindById_UserExists() {
-            // Arrange
             Long userId = 1L;
             User user = oneUserSample();
-            when(userService.findById(userId)).thenReturn(user); // Mock UserService response
-            when(userMapper.toDto(user)).thenReturn(oneUserDtoSample()); // Mock UserMapper response
+            when(userService.findById(userId)).thenReturn(user);
+            when(userMapper.toDto(user)).thenReturn(oneUserDtoSample());
 
-            // Act
             ResponseEntity<?> response = userController.findById(userId.toString());
 
-            // Assert
-            assertEquals(200, response.getStatusCodeValue()); // Assuming 200 is the status code for success
-            // Add more assertions based on the expected response entity
+            assertEquals(200, response.getStatusCodeValue());
         }
 
         @Test
         void testFindById_UserNotFound() {
-            // Arrange
             Long userId = 1L;
-            when(userService.findById(userId)).thenReturn(null); // Mock UserService response
+            when(userService.findById(userId)).thenReturn(null);
 
-            // Act
             ResponseEntity<?> response = userController.findById(userId.toString());
 
-            // Assert
-            assertEquals(404, response.getStatusCodeValue()); // Assuming 404 is the status code for not found
+            assertEquals(404, response.getStatusCodeValue());
         }
 
         @Test
         void testFindById_InvalidId() {
-            // Act
             ResponseEntity<?> response = userController.findById("invalidId");
 
-            // Assert
-            assertEquals(400, response.getStatusCodeValue()); // Assuming 400 is the status code for bad request
+            assertEquals(400, response.getStatusCodeValue());
         }
     }
 
@@ -82,7 +73,6 @@ public class UserControllerTest {
     class DeleteUserById {
         @Test
         void testDeleteUser_UserExistsAndAuthorized() {
-            // Arrange
             Long userId = 1L;
             UserDetails userDetails = new UserDetailsImpl(1L, "jean@gmail.com", "jean", "Doe", false, "test123");
             User user = oneUserSample();
@@ -92,20 +82,17 @@ public class UserControllerTest {
             when(securityContext.getAuthentication()).thenReturn(authentication);
             SecurityContextHolder.setContext(securityContext);
 
-            when(userService.findById(userId)).thenReturn(user); // User exists
+            when(userService.findById(userId)).thenReturn(user);
             doNothing().when(userService).delete(userId);
 
-            // Act
             ResponseEntity<?> response = userController.save(userId.toString());
 
-            // Assert
-            assertEquals(HttpStatus.OK, response.getStatusCode()); // Expecting 200 status code
-            verify(userService).delete(userId); // Verify that userService.delete was called exactly once
+            assertEquals(HttpStatus.OK, response.getStatusCode());
+            verify(userService).delete(userId);
         }
 
         @Test
         void testDeleteUser_Unauthorized() {
-            // Arrange
             Long userId = 1L;
             User user = oneUserSample();
             UserDetails userDetails = new UserDetailsImpl(userId, "test@example.com", "Test", "User", true, "12345678");
@@ -116,36 +103,29 @@ public class UserControllerTest {
             SecurityContextHolder.setContext(securityContext);
             when(userService.findById(userId)).thenReturn(user);
 
-            // Act
             ResponseEntity<?> response = userController.save(userId.toString());
 
-            // Assert
             assertEquals(HttpStatus.UNAUTHORIZED, response.getStatusCode());
             verify(userService, never()).delete(any());
         }
 
         @Test
         void testDeleteUser_UserDoesNotExist() {
-            // Arrange
             Long userId = 444L;
             when(userService.findById(userId)).thenReturn(null);
 
-            // Act
             ResponseEntity<?> response = userController.save(userId.toString());
 
-            // Assert
-            assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode()); // Expecting 404 status code
-            verify(userService, never()).delete(any()); // Verify that userService.delete was not called
+            assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
+            verify(userService, never()).delete(any());
         }
 
         @Test
         void testDeleteUser_InvalidId() {
-            // Act
             ResponseEntity<?> response = userController.save("invalidId");
 
-            // Assert
-            assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode()); // Expecting 400 status code
-            verify(userService, never()).delete(any()); // Verify that userService.delete was not called
+            assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
+            verify(userService, never()).delete(any());
         }
     }
 }

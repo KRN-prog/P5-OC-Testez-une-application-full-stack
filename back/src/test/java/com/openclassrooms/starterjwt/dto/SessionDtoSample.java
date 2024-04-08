@@ -14,11 +14,9 @@ import static lombok.AccessLevel.PRIVATE;
 
 @NoArgsConstructor(access = PRIVATE)
 public class SessionDtoSample {
-    // Creation d'une clock customisé
     static Clock customClock = Clock.fixed(
             Instant.parse("2024-02-06T16:30:00Z"),
             ZoneId.of("UTC"));
-    // Get current date and time using the custom clock
     static LocalDateTime now = LocalDateTime.ofInstant(customClock.instant(), ZoneId.systemDefault());
 
     public static SessionDto oneSessionDtoSample() {

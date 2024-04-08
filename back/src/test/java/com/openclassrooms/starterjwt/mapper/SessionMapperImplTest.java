@@ -29,13 +29,10 @@ public class SessionMapperImplTest {
 
         when(sessionMapper.toEntity(sessionsDto)).thenReturn(sessions);
 
-        // Call the method under test
         List<Session> result = sessionMapper.toEntity(sessionsDto);
 
-        // Assert the result
         assertEquals(sessionsDto.size(), result.size());
         assertThat(sessionsDto.size()).isEqualTo(2);
         assertThat(result.size()).isEqualTo(2);
-        // You may want to add more assertions to check the correctness of the conversion
     }
 }

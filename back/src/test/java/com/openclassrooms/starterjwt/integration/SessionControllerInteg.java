@@ -145,7 +145,6 @@ public class SessionControllerInteg {
                             .contentType(MediaType.APPLICATION_JSON)
                             .content(objectMapper.writeValueAsString(updatedSessionDto)))
                     .andExpect(status().isOk());
-                    //.andExpect(MockMvcResultMatchers.jsonPath("$.description").value("My description"));
         }
     }
 

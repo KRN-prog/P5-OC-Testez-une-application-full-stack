@@ -63,37 +63,29 @@ public class AuthControllerIntegTest {
         @Test
         @WithMockUser
         void testAuthenticateUser() throws Exception {
-            // Mock UserDetails
             UserDetailsImpl userDetails = Mockito.mock(UserDetailsImpl.class);
             when(userDetails.getUsername()).thenReturn("jean@gmail.com");
             when(userDetails.getPassword()).thenReturn("test123");
             when(userDetails.getAuthorities()).thenReturn(Collections.emptyList());
 
-            // Mock Authentication
             Authentication authentication = new UsernamePasswordAuthenticationToken(userDetails, null);
 
-            // Mock AuthenticationManager behavior
             when(authenticationManager.authenticate(any(Authentication.class)))
                     .thenReturn(authentication);
 
-            // Mock UserRepository behavior
             User user = oneUserSample();
             when(userRepository.findByEmail("jean@gmail.com")).thenReturn(Optional.of(user));
 
-            // Mock JwtUtils behavior
             when(jwtUtils.generateJwtToken(authentication)).thenReturn("mocked_jwt_token");
 
-            // Create LoginRequest
             LoginRequest loginRequest = oneLoginRequest();
 
-            // Perform POST request
             mockMvc.perform(post("/api/auth/login")
                             .contentType(MediaType.APPLICATION_JSON)
                             .content(asJsonString(loginRequest)))
                     .andExpect(status().isOk());
         }
 
-        // Helper method to convert object to JSON string
         private String asJsonString(final Object obj) {
             try {
                 return new ObjectMapper().writeValueAsString(obj);
@@ -109,16 +101,12 @@ public class AuthControllerIntegTest {
         @Test
         public void testRegisterUser_SuccessfulRegistration() throws Exception {
 
-            // Mock request
             SignupRequest signupRequest = oneSignUpRequest();
 
-            // Mock user not existing in repository
             when(userRepository.existsByEmail(signupRequest.getEmail())).thenReturn(false);
 
-            // Mock password encoding
             when(passwordEncoder.encode(signupRequest.getPassword())).thenReturn("encodedPassword");
 
-            // Perform the registration
             MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.post("/api/auth/register")
                             .contentType(MediaType.APPLICATION_JSON)
                             .content(asJsonString(signupRequest)))
@@ -128,7 +116,6 @@ public class AuthControllerIntegTest {
                     .andReturn();
         }
 
-        // Helper method to convert object to JSON string
         private String asJsonString(final Object obj) {
             try {
                 return new ObjectMapper().writeValueAsString(obj);

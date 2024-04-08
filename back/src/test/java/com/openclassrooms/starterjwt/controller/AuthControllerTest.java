@@ -43,7 +43,7 @@ public class AuthControllerTest {
 
     @Test
     void testAuthenticateUser() {
-        // Arrange
+
         LoginRequest loginRequest = oneLoginRequest();
         Authentication authentication = mock(Authentication.class);
         UserDetailsImpl userDetails = new UserDetailsImpl(1L, "james@john.com", "jean", "Doe", false, "password");
@@ -51,12 +51,9 @@ public class AuthControllerTest {
         when(authentication.getPrincipal()).thenReturn(userDetails);
         when(jwtUtils.generateJwtToken(authentication)).thenReturn("azerty");
 
-        // Act
         ResponseEntity<?> response = controller.authenticateUser(loginRequest);
 
-        // Assert
-        assertEquals(200, response.getStatusCodeValue()); // Assuming 200 is the status code for success
-        // Add more assertions based on the expected response entity
+        assertEquals(200, response.getStatusCodeValue());
     }
 
     @Nested

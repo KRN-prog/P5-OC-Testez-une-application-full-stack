@@ -20,16 +20,13 @@ import static lombok.AccessLevel.PRIVATE;
 public class SessionSample {
     public static Session oneSessionSample() throws ParseException {
 
-        // Creation d'une date de sample
         String datestring = "2024-02-06 16:30:00";
         SimpleDateFormat formatDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date newDate = formatDate.parse(datestring);
 
-        // Creation d'une clock customisé
         Clock customClock = Clock.fixed(
                 Instant.parse("2024-02-06T16:30:00Z"),
                 ZoneId.of("UTC"));
-        // Get current date and time using the custom clock
         LocalDateTime now = LocalDateTime.ofInstant(customClock.instant(), ZoneId.systemDefault());
 
         Session session = new Session();
@@ -49,16 +46,13 @@ public class SessionSample {
 
     public static Session oneOtherSessionSample() throws ParseException {
 
-        // Creation d'une date de sample
         String datestring = "2023-02-06 16:30:00";
         SimpleDateFormat formatDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date newDate = formatDate.parse(datestring);
 
-        // Creation d'une clock customisé
         Clock customClock = Clock.fixed(
                 Instant.parse("2023-02-06T16:30:00Z"),
                 ZoneId.of("UTC"));
-        // Get current date and time using the custom clock
         LocalDateTime now = LocalDateTime.ofInstant(customClock.instant(), ZoneId.systemDefault());
 
         Session session = new Session();
@@ -78,16 +72,13 @@ public class SessionSample {
 
     public static Session oneModifierSessionSample() throws ParseException {
 
-        // Creation d'une date de sample
         String datestring = "2024-02-06 16:30:00";
         SimpleDateFormat formatDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date newDate = formatDate.parse(datestring);
 
-        // Creation d'une clock customisé
         Clock customClock = Clock.fixed(
                 Instant.parse("2024-02-06T16:30:00Z"),
                 ZoneId.of("UTC"));
-        // Get current date and time using the custom clock
         LocalDateTime now = LocalDateTime.ofInstant(customClock.instant(), ZoneId.systemDefault());
 
         Session session = new Session();
